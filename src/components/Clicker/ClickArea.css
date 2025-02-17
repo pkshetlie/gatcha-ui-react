@@ -1,0 +1,26 @@
+.click-button {
+    background-color: #4CAF50; /* Vert */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease; /* Ajoute une transition douce */
+}
+
+.click-button:hover {
+    background-color: #3e8e41; /* Vert plus foncé au survol */
+}
+
+.click-button:active {
+    background-color: #2d6a30; /* Vert encore plus foncé au clic */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Réduit l'ombre portée au clic */
+    transform: translateY(1px); /* Légère translation vers le bas au clic */
+}
