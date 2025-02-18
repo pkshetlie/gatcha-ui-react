@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import './Modal.css';
-import config from "../../config";
 import API_BASE_URL from "../../config";
 
 function Modal({ imageUrl, name, description, bonusAttack, bonusDefense, isNsfw, showNsfw, evolutions, onClose }) {
