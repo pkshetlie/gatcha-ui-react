@@ -8,11 +8,10 @@ const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
     const { clicks, incrementClicks } = useClicks();
-    const { assistants, fetchAssistants, isLoading: isLoadingAssistants } = useAssistants();
+    const { assistants, fetchAssistants, updateAssistant, isLoading: isLoadingAssistants } = useAssistants();
     const { inventory, saveClicks, loadGame } = useGameData();
     const { token, user } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const [showNsfw, setShowNsfw] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,9 +32,6 @@ export const GameProvider = ({ children }) => {
         fetchData();
     }, [token, user, loadGame, fetchAssistants]);
 
-    const toggleNsfw = useCallback(() => {
-        setShowNsfw((prevShowNsfw) => !prevShowNsfw);
-    }, []);
 
     const value = {
         clicks,
@@ -44,9 +40,8 @@ export const GameProvider = ({ children }) => {
         incrementClicks,
         saveClicks,
         fetchAssistants,
+        updateAssistant,
         isLoading: isLoading || isLoadingAssistants,
-        showNsfw,
-        toggleNsfw,
     };
 
     return (

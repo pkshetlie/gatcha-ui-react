@@ -3,9 +3,11 @@ import './AssistantCard.css';
 import { useGame } from '../../context/GameContext';
 import Modal from '../UI/Modal';
 import InfoModal from '../UI/InfoModal';
+import {useAuth} from "../../context/AuthContext";
 
 function AssistantCard({ assistant }) {
   const { showNsfw } = useGame();
+  const { token } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
@@ -53,11 +55,14 @@ function AssistantCard({ assistant }) {
       {isModalOpen && (
         <Modal
           imageUrl={assistant.imageUrl}
+          portraitUrl={assistant.portraitUrl}
           name={assistant.name}
           isNsfw={assistant.isNsfw}
           showNsfw={showNsfw}
           evolutions={assistant.evolutions}
           onClose={handleCloseModal}
+          assistantId={assistant.id}
+          token={token}
         />
       )}
       {isInfoModalOpen && (

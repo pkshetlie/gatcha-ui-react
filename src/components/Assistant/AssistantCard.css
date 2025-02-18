@@ -1,14 +1,14 @@
 .portrait-container {
-    width: 100%; /* Le conteneur prend toute la largeur de la carte */
-    height: 200px; /* Ajuste la hauteur des portraits rectangulaires */
+    width: 100%;
+    height: 200px;
     overflow: hidden;
-    position: relative; /* Pour positionner le nom */
+    position: relative;
 }
 
 .portrait-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* L'image remplit tout le conteneur */
+    object-fit: cover;
 }
 
 .assistant-card {
@@ -31,7 +31,7 @@
     text-align: center;
     padding: 5px;
     font-size: 0.8em;
-    opacity: 1; /* Le nom est toujours visible */
+    opacity: 1;
     word-break: break-word;
     box-sizing: border-box;
 }
