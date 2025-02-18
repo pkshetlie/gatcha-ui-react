@@ -10,29 +10,44 @@ function useAssistants() {
 
     const fetchAssistants = useCallback(async (page = 1) => {
         if (!token || !user) return;
-
         setIsLoading(true);
         try {
-            const data = await api.get(`/cards?page=${page}`, token);
+            // 1. Récupère la liste des IDs des assistantes
+            const idsData = await api.get(`/cards?page=${page}`, token);
+            const assistantIds = idsData.map(item => item.id);
 
-            const formattedAssistants = data.map(card => {
-                // Détermine l'URL du portrait
-                const portraitName = card.portrait ? card.portrait : null;
-                const portraitUrl = portraitName ? `${API_BASE_URL.replace('/api', '')}${portraitName}` : null;
+            // 2. Récupère les détails de chaque assistante
+            const assistantDetails = await Promise.all(
+              assistantIds.map(async (id) => {
+                  try {
+                      const cardData = await api.get(`/card/${id}`, token);
 
-                return {
-                    id: card.id,
-                    name: card.personnage.name,
-                    description: card.personnage.description,
-                    imageUrl: card.evolutionSelection?.image ? `${API_BASE_URL.replace('/api', '')}/characters/${card.evolutionSelection.image}` : null, // URL de l'image principale
-                    portraitUrl: portraitUrl, // URL du portrait
-                    isNsfw: card.evolutionSelection ? card.evolutionSelection.isNsfw : false,
-                    bonusAttack: card.bonusAttack,
-                    bonusDefense: card.bonusDefense,
-                };
-            });
+                      // Construire les URLs des images
+                      const portraitUrl = cardData.portrait ? `${API_BASE_URL.replace('/api', '')}${cardData.portrait}` : null;
+                      const imageUrl = cardData.evolution_displayed?.image ? `${API_BASE_URL.replace('/api', '')}${cardData.evolution_displayed.image}` : null;
 
-            setAssistants(formattedAssistants);
+                      return {
+                          id: cardData.id,
+                          name: cardData.personnage.name,
+                          description: cardData.personnage.description,
+                          imageUrl: imageUrl,
+                          portraitUrl: portraitUrl,
+                          isNsfw: cardData.evolutions_displayable.some(evo => evo.isNsfw), //Vérifie si au moins une évolution est NSFW
+                          bonusAttack: cardData.dataset.bonus[1], //Bonus à l'attaque
+                          bonusDefense: cardData.dataset.bonus[4], //Bonus à la défense
+                          evolutions: cardData.evolutions_displayable,
+                      };
+                  } catch (error) {
+                      console.error(`Error fetching details for card ${id}:`, error);
+                      return null; // Retourne null en cas d'erreur pour cette carte
+                  }
+              })
+            );
+
+            // 3. Filtre les résultats pour enlever les cartes qui ont retourné une erreur
+            const filteredAssistants = assistantDetails.filter(assistant => assistant !== null);
+            setAssistants(filteredAssistants);
+
         } catch (error) {
             console.error('Error fetching assistants:', error);
         } finally {

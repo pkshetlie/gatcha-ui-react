@@ -3,8 +3,9 @@ import API_BASE_URL from '../config';
 const api = {
     async get(endpoint, token) {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': token ? `Bearer ${token}` : undefined, // N'incluez le token que s'il est fourni
                 'Content-Type': 'application/json',
             },
         });

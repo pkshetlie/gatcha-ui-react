@@ -24,8 +24,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await fetch(`${API_BASE_URL}/login_check`, {
         method: 'POST',
+        // mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
+          'accept': 'application/json',
         },
         body: JSON.stringify({ username, password }),
       });

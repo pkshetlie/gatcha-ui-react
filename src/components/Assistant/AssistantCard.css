@@ -1,22 +1,14 @@
 .portrait-container {
-    width: 80px;
-    height: 80px;
+    width: 100%; /* Le conteneur prend toute la largeur de la carte */
+    height: 200px; /* Ajuste la hauteur des portraits rectangulaires */
     overflow: hidden;
-    border-radius: 50%;
-    cursor: pointer;
-    margin: 5px;
-    position: relative;
+    position: relative; /* Pour positionner le nom */
 }
 
 .portrait-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.portrait-container img:hover {
-    transform: scale(1.1);
+    object-fit: cover; /* L'image remplit tout le conteneur */
 }
 
 .assistant-card {
@@ -39,25 +31,29 @@
     text-align: center;
     padding: 5px;
     font-size: 0.8em;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    word-break: break-word; /* Permet de couper les mots trop longs */
-    box-sizing: border-box; /* Inclut le padding dans la largeur */
+    opacity: 1; /* Le nom est toujours visible */
+    word-break: break-word;
+    box-sizing: border-box;
 }
 
-.portrait-container:hover .name-overlay {
-    opacity: 1;
+/* Nouveaux styles pour les boutons */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px; /* Ajoute un espace au-dessus des boutons */
 }
 
-.modal-nsfw-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+.buttons-container button {
+    background-color: #007bff; /* Couleur de fond bleue */
+    color: white; /* Texte en blanc */
     border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
+    padding: 5px 10px; /* Ajuste la taille des boutons */
+    margin: 0 5px; /* Ajoute un espace entre les boutons */
+    border-radius: 4px; /* Bords arrondis */
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.8em;
+}
+
+.buttons-container button:hover {
+    background-color: #0056b3; /* Couleur de fond plus foncée au survol */
 }

@@ -2,67 +2,75 @@ import React, { useState, useCallback } from 'react';
 import './AssistantCard.css';
 import { useGame } from '../../context/GameContext';
 import Modal from '../UI/Modal';
+import InfoModal from '../UI/InfoModal';
 
 function AssistantCard({ assistant }) {
-    const { showNsfw } = useGame();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showName, setShowName] = useState(false);
+  const { showNsfw } = useGame();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
-    const handleImageClick = useCallback(() => {
-        setIsModalOpen(true);
-    }, [setIsModalOpen]);
+  const handleImageClick = useCallback(() => {
+    setIsModalOpen(true);
+  }, [setIsModalOpen]);
 
-    const handleCloseModal = useCallback(() => {
-        setIsModalOpen(false);
-    }, [setIsModalOpen]);
+  const handleInfoClick = useCallback(() => {
+    setIsInfoModalOpen(true);
+  }, [setIsInfoModalOpen]);
 
-    const handleMouseEnter = useCallback(() => {
-        setShowName(true);
-    }, [setShowName]);
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, [setIsModalOpen]);
 
-    const handleMouseLeave = useCallback(() => {
-        setShowName(false);
-    }, [setShowName]);
+  const handleCloseInfoModal = useCallback(() => {
+    setIsInfoModalOpen(false);
+  }, [setIsInfoModalOpen]);
 
-    const portraitStyle = {
-        cursor: 'pointer',
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-    };
+  const portraitStyle = {
+    cursor: 'pointer',
+    width: '100%',
+    height: '200px', // Hauteur fixe pour les portraits rectangulaires
+    objectFit: 'cover',
+  };
 
-    return (
-        <>
-            <div
-                className="portrait-container"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
-                <img
-                    src={assistant.portraitUrl}
-                    alt={assistant.name}
-                    style={portraitStyle}
-                    onClick={handleImageClick}
-                />
-                {showName && <div className="name-overlay">{assistant.name}</div>}
-            </div>
+  return (
+    <>
+      <div className="assistant-card">
+        <div className="portrait-container">
+          <img
+            src={assistant.portraitUrl}
+            alt={assistant.name}
+            style={portraitStyle}
+          />
+          <div className="name-overlay">{assistant.name}</div>
+        </div>
+        <div className="buttons-container">
+          <button onClick={handleImageClick}>View Image</button>
+          <button onClick={handleInfoClick}>View Info</button>
+        </div>
+      </div>
 
-            {isModalOpen && (
-                <Modal
-                    imageUrl={assistant.imageUrl}
-                    name={assistant.name}
-                    description={assistant.description}
-                    bonusAttack={assistant.bonusAttack}
-                    bonusDefense={assistant.bonusDefense}
-                    isNsfw={assistant.isNsfw}
-                    showNsfw={showNsfw}
-                    isBlurred={assistant.isNsfw && !showNsfw} // Initialise isBlurred
-                    onToggleBlur={() => { }} // Enlève la fonction
-                    onClose={handleCloseModal}
-                />
-            )}
-        </>
-    );
+
+      {isModalOpen && (
+        <Modal
+          imageUrl={assistant.imageUrl}
+          name={assistant.name}
+          isNsfw={assistant.isNsfw}
+          showNsfw={showNsfw}
+          evolutions={assistant.evolutions}
+          onClose={handleCloseModal}
+        />
+      )}
+      {isInfoModalOpen && (
+        <InfoModal
+          name={assistant.name}
+          description={assistant.description}
+          bonusAttack={assistant.bonusAttack}
+          bonusDefense={assistant.bonusDefense}
+          onClose={handleCloseInfoModal}
+        />
+      )}
+    </>
+  );
 }
 
 export default AssistantCard;

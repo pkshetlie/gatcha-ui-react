@@ -24,8 +24,8 @@ function useGameData() {
         if (!token || !user) return;
 
         try {
-            const data = await api.get('/load-game', token);
-            return data;
+            // const data = await api.get('/load-game', token);
+            // return data;
         } catch (error) {
             console.error('Error loading game data:', error);
             return null;
