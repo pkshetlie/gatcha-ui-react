@@ -57,10 +57,10 @@ function useAssistants() {
         }
     }, [token, user]);
 
-    const updateAssistant = useCallback((assistantId, newPortraitUrl) => {
+    const updateAssistant = useCallback((assistantId, newPortraitUrl, newImageUrl) => {
         setAssistants(prevAssistants =>
             prevAssistants.map(assistant =>
-                assistant.id === assistantId ? { ...assistant, portraitUrl: newPortraitUrl } : assistant
+                assistant.id === assistantId ? { ...assistant, portraitUrl: newPortraitUrl, imageUrl: newImageUrl } : assistant
             )
         );
     }, []);
