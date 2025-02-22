@@ -10,8 +10,23 @@
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
   </component>
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="7dde48d1-d9b7-4ab4-8844-73b8f51a5156" beautifier_path="$PROJECT_DIR$/../apiLib/vendor/bin/phpcbf.bat" tool_path="C:/var/apiLib/vendor/bin/phpcs.bat" />
+    </phpcs_settings>
+  </component>
+  <component name="PhpStan">
+    <PhpStan_settings>
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="7dde48d1-d9b7-4ab4-8844-73b8f51a5156" tool_path="$PROJECT_DIR$/../RagnaCustoms/vendor/bin/phpstan.bat" />
+    </PhpStan_settings>
+  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
+  </component>
+  <component name="Psalm">
+    <Psalm_settings>
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="7dde48d1-d9b7-4ab4-8844-73b8f51a5156" timeout="60000" />
+    </Psalm_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
     <option name="transferred" value="true" />

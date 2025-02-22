@@ -1,17 +1,24 @@
-import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import useClicks from '../hooks/useClicks';
 import useAssistants from '../hooks/useAssistants';
 import useGameData from '../hooks/useGameData';
 import { useAuth } from './AuthContext';
+import useInventory from "../hooks/useInventory";
 
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
     const { clicks, incrementClicks } = useClicks();
     const { assistants, fetchAssistants, updateAssistant, isLoading: isLoadingAssistants } = useAssistants();
-    const { inventory, saveClicks, loadGame } = useGameData();
+    const { inventory, fetchInventory } = useInventory();
+    const { saveClicks, loadGame } = useGameData();
     const { token, user } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const [hideNsfw, setShowNsfw] = useState(true);
+
+    const toggleNsfw = () => {
+        setShowNsfw((prev) => !prev);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,11 +33,12 @@ export const GameProvider = ({ children }) => {
                     setIsLoading(false);
                 }
                 fetchAssistants();
+                fetchInventory();
             }
         };
 
         fetchData();
-    }, [token, user, loadGame, fetchAssistants]);
+    }, [token, user, loadGame, fetchAssistants, fetchInventory]);
 
 
     const value = {
@@ -42,6 +50,10 @@ export const GameProvider = ({ children }) => {
         fetchAssistants,
         updateAssistant,
         isLoading: isLoading || isLoadingAssistants,
+
+        hideNsfw, // Ajouter l'état NSFW
+        toggleNsfw, // Ajouter la fonction pour basculer NSFW
+
     };
 
     return (

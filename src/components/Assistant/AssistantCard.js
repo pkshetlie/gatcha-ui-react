@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import './AssistantCard.css';
 import { useGame } from '../../context/GameContext';
 import Modal from '../UI/Modal';
+import config from '../../config';
 import InfoModal from '../UI/InfoModal';
 import {useAuth} from "../../context/AuthContext";
 
@@ -39,11 +40,11 @@ function AssistantCard({ assistant }) {
       <div className="assistant-card">
         <div className="portrait-container">
           <img
-            src={assistant.portraitUrl}
-            alt={assistant.name}
+            src={config.IMAGE_BASE_URL+assistant.evolution_displayed.portrait}
+            alt={assistant.personnage.name}
             style={portraitStyle}
           />
-          <div className="name-overlay">{assistant.name}</div>
+          <div className="name-overlay">{assistant.personnage.name}</div>
         </div>
         <div className="buttons-container">
           <button onClick={handleImageClick}>View Image</button>
@@ -54,23 +55,15 @@ function AssistantCard({ assistant }) {
 
       {isModalOpen && (
         <Modal
-          imageUrl={assistant.imageUrl}
-          portraitUrl={assistant.portraitUrl}
-          name={assistant.name}
-          isNsfw={assistant.isNsfw}
+          assistant={assistant}
           showNsfw={showNsfw}
-          evolutions={assistant.evolutions}
           onClose={handleCloseModal}
-          assistantId={assistant.id}
           token={token}
         />
       )}
       {isInfoModalOpen && (
         <InfoModal
-          name={assistant.name}
-          description={assistant.description}
-          bonusAttack={assistant.bonusAttack}
-          bonusDefense={assistant.bonusDefense}
+          assistant={assistant}
           onClose={handleCloseInfoModal}
         />
       )}

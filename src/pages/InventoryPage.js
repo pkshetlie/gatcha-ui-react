@@ -5,7 +5,6 @@ import PageWrapper from '../components/Layout/PageWrapper';
 function InventoryPage() {
     return (
         <PageWrapper>
-            <h1>Inventory</h1>
             <InventoryDisplay />
         </PageWrapper>
     );

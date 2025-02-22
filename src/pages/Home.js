@@ -9,7 +9,6 @@ function Home() {
     return (
         <PageWrapper>
             <div className="home-container">
-                <h1>Clicker Game</h1>
                 <ClickCounter />
                 <ClickArea />
                 <AssistantList />

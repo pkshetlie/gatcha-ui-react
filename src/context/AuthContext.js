@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import API_BASE_URL from '../config';
+import config from '../config';
 
 const AuthContext = createContext();
 
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(async (username, password) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/login_check`, {
+      const response = await fetch(`${config.API_BASE_URL}/login_check`, {
         method: 'POST',
         // mode: 'no-cors',
         headers: {

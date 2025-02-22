@@ -1,0 +1,66 @@
+.inventory-display {
+  padding: 20px;
+  background-color: #fefefe;
+}
+
+.inventory-display h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Alignement des boîtes en mode grille */
+.inventory-grid {
+  display: flex;
+  flex-wrap: wrap; /* Permet de passer à une nouvelle ligne si l’espace est insuffisant */
+  gap: 20px; /* Espacement entre les boîtes */
+  justify-content: center; /* Aligne les items au centre */
+}
+
+/* Chaque boîte d’inventaire */
+.inventory-item {
+  display: flex;
+  flex-direction: column; /* Aligne le contenu verticalement */
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  height: 200px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  border: 1px solid #ddd; /* Ajoute une bordure légère aux boîtes */
+}
+
+.inventory-item:hover {
+  transform: scale(1.05); /* Zoom léger au survol */
+  border-color: #aaa; /* Change la couleur de la bordure au survol */
+}
+
+/* Gestion des images */
+.inventory-image {
+  max-width: 100%; /* L'image ne sort jamais de la boîte */
+  max-height: 100px; /* Hauteur maximale de l'image */
+  object-fit: contain; /* Conserve les proportions sans déformer ou recadrer */
+  margin-bottom: 10px; /* Espace sous l'image */
+}
+
+/* Détails de la boîte */
+.inventory-details {
+  display: flex;
+  flex-direction: column; /* Positionne le texte verticalement */
+  align-items: center;
+}
+
+.inventory-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.inventory-count {
+  color: #555;
+}

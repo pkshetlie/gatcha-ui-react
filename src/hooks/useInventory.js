@@ -6,7 +6,7 @@ function useInventory() {
     const [inventory, setInventory] = useState({ simple: 0, rare: 0, epic: 0 });
     const { token, user } = useAuth();
 
-    const updateInventory = useCallback(async () => {
+    const fetchInventory = useCallback(async () => {
         if (!token || !user) return;
 
         try {
@@ -40,7 +40,7 @@ function useInventory() {
         }
     }, [token, user]);
 
-    return { inventory, updateInventory, addScroll };
+    return { inventory, fetchInventory, addScroll };
 }
 
 export default useInventory;

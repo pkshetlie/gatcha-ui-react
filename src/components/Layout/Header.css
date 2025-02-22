@@ -24,3 +24,128 @@
     margin-right: 20px;
     font-size: 1em;
 }
+
+/* Style pour le conteneur du switch */
+.nsfw-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style du switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Structure de base du switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px; /* On agrandit un peu pour contenir le texte NSFW */
+    height: 24px; /* Légèrement plus large */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Structure de base du switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px; /* On agrandit un peu pour contenir le texte NSFW */
+    height: 24px; /* Légèrement plus large */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Structure de base du switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 90px; /* Largeur ajustée pour afficher NSFW */
+    height: 24px; /* Hauteur ajustée */
+}
+
+.switch input {
+    opacity: 0; /* Masquer l'input checkbox */
+    width: 0;
+    height: 0;
+}
+
+/* Slider contenant le texte NSFW */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc; /* Couleur grisée pour l'état désactivé */
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px; /* Taille du texte */
+    font-weight: bold;
+    color: #fff; /* Couleur du texte par défaut */
+    transition: background-color 0.4s ease; /* Transition pour le changement de couleur */
+}
+
+.slider:before {
+    position: absolute;
+    content: '';
+    height: 18px;
+    width: 18px;
+    left: 3px; /* Début à gauche */
+    bottom: 3px; /* Centré verticalement */
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+/* État activé du switch */
+input:checked + .slider {
+    background-color: #4caf50; /* Couleur verte pour l'état activé */
+}
+
+input:checked + .slider:before {
+    transform: translateX(45px); /* Déplacer la pastille vers la droite */
+}
+
+input:checked + .slider:after {
+    transform: translateX(-20px); /* Déplacer la pastille vers la droite */
+}
+
+
+/* Texte NSFW toujours visible */
+.slider::after {
+    font-size:0.8em!important;
+    content: "NSFW"; /* Afficher NSFW dans tous les états */
+    position: absolute;
+    right: 10px;
+    color: rgba(255, 255, 255, 0.9); /* Texte semi-transparent pour l'état désactivé */
+    transition: color 0.4s;
+}
+
+/* Texte plus brillant lorsque le switch est activé */
+input:checked + .slider::after {
+    color: #ffffff; /* Couleur blanche (plus lisible) pour l'état activé */
+}

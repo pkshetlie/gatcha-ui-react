@@ -1,7 +1,7 @@
 import React from 'react';
 import './InfoModal.css';
 
-function InfoModal({ name, description, bonusAttack, bonusDefense, onClose }) {
+function InfoModal({ assistant, onClose }) {
   const modalStyle = {
     position: 'fixed',
     top: 0,
@@ -30,10 +30,10 @@ function InfoModal({ name, description, bonusAttack, bonusDefense, onClose }) {
   return (
     <div style={modalStyle} onClick={onClose}>
       <div style={infoContainerStyle}>
-        <h3>{name}</h3>
-        <p>{description}</p>
-        <p>Bonus Attack: {bonusAttack}</p>
-        <p>Bonus Defense: {bonusDefense}</p>
+        <h3>{assistant.personnage.name}</h3>
+        <p>{assistant.personnage.description}</p>
+        <p>Bonus Attack: {assistant?.dataset?.bonus?.[1] || 0}</p>
+        <p>Bonus Defense: {assistant?.dataset?.bonus?.[4] || 0}</p>
       </div>
     </div>
   );

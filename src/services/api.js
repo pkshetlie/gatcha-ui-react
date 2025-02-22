@@ -1,8 +1,8 @@
-import API_BASE_URL from '../config';
+import config from '../config';
 
 const api = {
     async get(endpoint, token) {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${config.API_BASE_URL}${endpoint}`, {
             method: 'GET',
             headers: {
                 'Authorization': token ? `Bearer ${token}` : undefined, // N'incluez le token que s'il est fourni
@@ -16,7 +16,7 @@ const api = {
     },
 
     async post(endpoint, data, token) {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${config.API_BASE_URL}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Authorization': token ? `Bearer ${token}` : undefined, // N'incluez le token que s'il est fourni
@@ -36,7 +36,7 @@ const api = {
     },
 
     async put(endpoint, data, token) {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${config.API_BASE_URL}${endpoint}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -51,7 +51,7 @@ const api = {
     },
 
     async delete(endpoint, token) {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        const response = await fetch(`${config.API_BASE_URL}${endpoint}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
