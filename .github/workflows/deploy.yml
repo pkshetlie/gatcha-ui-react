@@ -3,49 +3,48 @@ name: Deploy React Application to Server
 on:
     push:
         branches:
-            - master # Déclenche après un push sur la branche "main"
+            - master # Déclenche l'action après un push sur la branche "master"
 
 jobs:
     deploy:
         runs-on: ubuntu-latest
 
         steps:
-            # Étape 1 : Vérifier le code
+            # Étape 1 : Récupérer le code depuis le dépôt
             - name: Checkout code
               uses: actions/checkout@v3
-            - name: Préparer la clé SSH
-              env:
-                  SERVER_IP:
-                      ${{ secrets.SERVER_IP }}
-              run: |
-                    ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
 
-            # Étape 2 : Installer Node.js
+            # Étape 2 : Configurer l'environnement SSH
+            - name: Créer le répertoire SSH et ajouter la clé hôte
+              env:
+                  SERVER_IP: ${{ secrets.SERVER_IP }}
+              run: |
+                  mkdir -p ~/.ssh
+                  chmod 700 ~/.ssh
+                  ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+                  chmod 644 ~/.ssh/known_hosts
+
+            # Étape 3 : Installer Node.js
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
-                  node-version: '20' # Assurez-vous d'utiliser une version compatible avec votre projet React
+                  node-version: '20' # Utilisez la version compatible avec votre projet React
 
-            # Étape 3 : Installer les dépendances et compiler l'application
+            # Étape 4 : Installer les dépendances et construire l'application
             - name: Install dependencies and build React app
               run: |
                   npm install
                   npm run build
 
-            # Étape 4 : Ajouter la clé SSH pour la connexion au serveur
+            # Étape 5 : Configurer une clé SSH pour se connecter au serveur
             - name: Setup SSH
               uses: webfactory/ssh-agent@v0.5.3
               with:
                   ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-            -   name: Inject .env variables
-                run: |
-                    echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
-
-            # Étape 5 : Déployer les fichiers générés sur le serveur
+            # Étape 6 : Déployer les fichiers générés sur le serveur
             - name: Deploy the built files to the server
               env:
                   SERVER_IP: ${{ secrets.SERVER_IP }}
               run: |
-                  # Transférer les fichiers compilés (dossier `build/`) vers le serveur
                   rsync -avz --delete build/ deployuser@$SERVER_IP:/var/www/html/gatcha.fr/waifu-ui/
