@@ -13,14 +13,18 @@ jobs:
             # Étape 1 : Vérifier le code
             - name: Checkout code
               uses: actions/checkout@v3
-            - name: Préparer la clé SSH
-              env:
-                  SERVER_IP:
-                      ${{ secrets.SERVER_IP }}
-              run: |
-                    ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
 
-            # Étape 2 : Installer Node.js
+            # Étape 2 : Configurer l'environnement SSH
+            - name: Créer le répertoire SSH et ajouter la clé hôte
+              env:
+                  SERVER_IP: ${{ secrets.SERVER_IP }}
+              run: |
+                  mkdir -p ~/.ssh
+                  chmod 700 ~/.ssh
+                  ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+                  chmod 644 ~/.ssh/known_hosts
+
+            # Étape 3 : Installer Node.js
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
