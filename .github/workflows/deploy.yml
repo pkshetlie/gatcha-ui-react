@@ -1,0 +1,41 @@
+name: Deploy React Application to Server
+
+on:
+    push:
+        branches:
+            - main # Déclenche après un push sur la branche "main"
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # Étape 1 : Vérifier le code
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            # Étape 2 : Installer Node.js
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20' # Assurez-vous d'utiliser une version compatible avec votre projet React
+
+            # Étape 3 : Installer les dépendances et compiler l'application
+            - name: Install dependencies and build React app
+              run: |
+                  npm install
+                  npm run build
+
+            # Étape 4 : Ajouter la clé SSH pour la connexion au serveur
+            - name: Setup SSH
+              uses: webfactory/ssh-agent@v0.8.1
+              with:
+                  ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+            # Étape 5 : Déployer les fichiers générés sur le serveur
+            - name: Deploy the built files to the server
+              env:
+                  SERVER_IP: ${{ secrets.SERVER_IP }}
+              run: |
+                  # Transférer les fichiers compilés (dossier `build/`) vers le serveur
+                  rsync -avz --delete build/ deployuser@$SERVER_IP:/var/www/html/gatcha.fr/waifu-ui/
