@@ -30,6 +30,9 @@ jobs:
               with:
                   node-version: '20' # Assurez-vous d'utiliser une version compatible avec votre projet React
 
+            -   name: Inject .env variables
+                run: |
+                    echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
             # Étape 3 : Installer les dépendances et compiler l'application
             - name: Install dependencies and build React app
               run: |
@@ -41,10 +44,6 @@ jobs:
               uses: webfactory/ssh-agent@v0.5.3
               with:
                   ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-
-            -   name: Inject .env variables
-                run: |
-                    echo "REACT_APP_BASE_URL=https://api.waifu.gatcha.fr/login" >> .env
 
             # Étape 5 : Déployer les fichiers générés sur le serveur
             - name: Deploy the built files to the server
