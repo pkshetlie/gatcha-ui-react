@@ -121,7 +121,7 @@ function Modal({
     };
 
     const evolutionItemStyle = {
-        width: '20%',
+        width: '10%',
         padding: '5px',
         boxSizing: 'border-box',
         cursor: 'pointer'
