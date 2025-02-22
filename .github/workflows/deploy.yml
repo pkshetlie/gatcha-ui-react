@@ -28,7 +28,7 @@ jobs:
 
             # Étape 4 : Ajouter la clé SSH pour la connexion au serveur
             - name: Setup SSH
-              uses: webfactory/ssh-agent@v0.8.1
+              uses: webfactory/ssh-agent@v0.5.3
               with:
                   ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
