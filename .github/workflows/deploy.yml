@@ -24,27 +24,13 @@ jobs:
                   ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
                   chmod 644 ~/.ssh/known_hosts
 
-            # Étape 3 : Installer Node.js
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '20' # Utilisez la version compatible avec votre projet React
-
-            # Étape 4 : Installer les dépendances et construire l'application
-            - name: Install dependencies and build React app
-              run: |
-                  npm install
-                  npm run build
-
-            # Étape 5 : Configurer une clé SSH pour se connecter au serveur
+            # Étape 3 : Configurer une clé SSH pour se connecter au serveur
             - name: Setup SSH
               uses: webfactory/ssh-agent@v0.5.3
               with:
                   ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-            # Étape 6 : Déployer les fichiers générés sur le serveur
-            - name: Deploy the built files to the server
-              env:
-                  SERVER_IP: ${{ secrets.SERVER_IP }}
-              run: |
-                  rsync -avz --delete build/ deployuser@$SERVER_IP:/var/www/html/gatcha.fr/waifu-ui/
+            # Étape 4 : Exécuter le script deploy.sh sur le serveur distant
+            -   name: Deploy application
+                run: |
+                    ssh -o StrictHostKeyChecking=no deployuser@${{ secrets.SERVER_IP }} 'bash /var/www/html/gatcha.fr/waifu-ui/deploy.sh'
