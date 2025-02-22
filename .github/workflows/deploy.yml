@@ -44,7 +44,7 @@ jobs:
 
             -   name: Inject .env variables
                 run: |
-                    echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
+                    echo "REACT_APP_BASE_URL=https://api.waifu.gatcha.fr/login" >> .env
 
             # Étape 5 : Déployer les fichiers générés sur le serveur
             - name: Deploy the built files to the server
