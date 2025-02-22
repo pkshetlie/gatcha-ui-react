@@ -1,14 +1,41 @@
 import config from '../config';
 
+const retryRequestWithNewToken = async (originalRequest, refreshToken) => {
+    // Appeler l'API pour rafraîchir le token
+    const response = await fetch(`${config.API_BASE_URL}/token/refresh`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken }),
+    });
+
+    if (!response.ok) throw new Error('Failed to refresh access token');
+
+    const data = await response.json();
+    localStorage.setItem('token', data.token);
+
+    // Met à jour l'autorisation pour la nouvelle requête
+    originalRequest.headers['Authorization'] = `Bearer ${data.token}`;
+
+    return fetch(originalRequest.url, originalRequest); // Relance la requête
+};
+
 const api = {
-    async get(endpoint, token) {
-        const response = await fetch(`${config.API_BASE_URL}${endpoint}`, {
+    async get(endpoint, token, refreshToken) {
+        const originalRequest = {
+            url: `${config.API_BASE_URL}${endpoint}`,
             method: 'GET',
-            headers: {
-                'Authorization': token ? `Bearer ${token}` : undefined, // N'incluez le token que s'il est fourni
-                'Content-Type': 'application/json',
-            },
-        });
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+        };
+
+
+        const response = await fetch(originalRequest.url, originalRequest);
+        if (response.status === 401) {
+            // Token expiré, tente de rafraîchir puis relancer
+            return retryRequestWithNewToken(originalRequest, refreshToken);
+        }
+
         if (!response.ok) {
             throw new Error(`API Error: ${response.status}`);
         }
