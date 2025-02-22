@@ -3,23 +3,24 @@
 # Arrêter le script en cas d'erreur
 set -e
 
-# Chemin du projet sur le serveur
+# Définir le répertoire exact du projet
 PROJECT_DIR="/var/www/html/gatcha.fr/waifu-ui"
 
-# Aller dans le répertoire du projet
+# Aller dans le bon dossier
 cd $PROJECT_DIR
 
-# Mettre à jour le code source depuis le dépôt distant
-echo "Pulling latest changes from Git repository..."
-git pull origin master
+# Vérifier si nous sommes dans le bon répertoire
+echo "Dossier actuel : $(pwd)"
 
-# Installer ou mettre à jour les dépendances
-echo "Installing/updating npm dependencies..."
-npm install
+# Mettre à jour le code source (si nécessaire)
+git fetch origin main
+git reset --hard origin/main
 
-# Créer les fichiers optimisés pour la production
-echo "Building application for production..."
+# Installer les dépendances
+npm install --force
+
+# Construire le projet
+echo "Création du build pour le projet React..."
 npm run build
 
-# Vérifiez les permissions des fichiers générés, si nécessaire.
-echo "Deployment complete. Files are ready!"
+echo "Build terminé avec succès."
