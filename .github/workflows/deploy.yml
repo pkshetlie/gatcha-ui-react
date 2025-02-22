@@ -3,7 +3,7 @@ name: Deploy React Application to Server
 on:
     push:
         branches:
-            - main # Déclenche après un push sur la branche "main"
+            - master # Déclenche après un push sur la branche "main"
 
 jobs:
     deploy:
