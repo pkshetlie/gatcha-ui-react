@@ -1,0 +1,150 @@
+/* Conteneur global du Shop */
+.shop {
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.shop-title {
+  font-size: 2.5rem;
+  color: #444;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.summons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Carte d'invocation */
+.summon-card {
+  width: 320px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.summon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.summon-banner {
+  width: 90%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.summon-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #222;
+}
+
+.summon-inventory {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.summon-options {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Boutons d'invocations */
+.summon-buttons {
+  display: flex;
+  flex-direction: row; /* Les boutons sont placés côte à côte */
+  gap: 15px; /* Espacement entre les boutons */
+  margin-top: 20px;
+  justify-content: center; /* Centrer les boutons */
+  width: 100%;
+}
+
+.summon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 30px; /* Bords arrondis pour un look plus moderne */
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Une légère ombre pour donner du relief */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  text-align: center;
+}
+
+.summon-button img.summon-cost-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.summon-button:not(.disabled):hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Le bouton "remonte" légèrement au hover */
+}
+
+.summon-button.disabled,
+.summon-button.disabled:hover {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none; /* Pas d'animation si le bouton est désactivé */
+  box-shadow: none;
+}
+
+/* Loader */
+.shop-loader {
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: center;
+  color: #777;
+}
+
+/* Gestion des erreurs */
+.shop-error {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #ff4d4d;
+  margin-top: 20px;
+}
+
+/* Adaptation responsive : boutons empilés sur écran étroit */
+@media (max-width: 768px) {
+  .summons-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .summon-card {
+    width: 90%;
+  }
+
+  .summon-buttons {
+    flex-direction: column; /* Les boutons s'empilent sur petits écrans */
+    gap: 10px;
+  }
+}

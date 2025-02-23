@@ -11,7 +11,6 @@ function Header() {
 
     return (
       <header className="header">
-          <h1>Clicker Game</h1>
           {user ? (
             <div className="header-right">
                 <span>Welcome, {user.username}</span>

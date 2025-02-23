@@ -1,0 +1,52 @@
+/* ---- Conteneur principal de la carte ---- */
+.card-container {
+  position: relative; /* Superpose les faces de la carte */
+  width: 300px; /* Largeur de la carte */
+  height: 450px; /* Hauteur de la carte */
+  perspective: 1000px; /* Active les transformations 3D */
+  cursor: pointer; /* Ajoute un curseur interactif */
+  transition: z-index 0.3s ease; /* Fluidité pour les interactions */
+}
+
+/* ---- Faces de la carte (recto/verso) ---- */
+.card-face {
+  position: absolute; /* Superpose les faces */
+  width: 100%; /* Occupe tout l'espace de la carte */
+  height: 100%;
+  backface-visibility: hidden; /* Cache une face lorsque l'autre est visible */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  transition: transform 0.6s ease-in-out; /* Transition fluide pour le retournement */
+}
+
+/* ---- Face avant (recto) ---- */
+.card-front {
+  background-color: transparent; /* Fond blanc */
+  transform: rotateY(180deg); /* Face avant affichée au départ */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrage de contenu */
+}
+
+/* ---- Face arrière (verso) ---- */
+.card-back {
+  background-color: #444; /* Fond gris foncé */
+  transform: rotateY(0deg); /* Face arrière invisible au départ */
+  background-size: cover; /* Image de fond qui couvre entièrement */
+  background-position: center; /* Centré */
+}
+
+/* ---- Image sur la carte ---- */
+.card-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Ajuste les coins de l'image */
+}
+
+/* ---- Effets de retournement ---- */
+.card-container.flipped .card-front {
+  transform: rotateY(0deg); /* Tourne le recto lorsqu'il est caché */
+}
+.card-container.flipped .card-back {
+  transform: rotateY(180deg); /* Affiche le verso */
+}

@@ -1,0 +1,110 @@
+/* ---- Fond modal ---- */
+.modal-overlay {
+  position: fixed; /* Occupe tout l'écran */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Toujours au-dessus des autres éléments */
+  overflow: hidden; /* Aucun débordement */
+}
+
+/* ---- Conteneur principal des cartes en pile ---- */
+.card-container-pile {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Disposition en grille après révélation des cartes */
+.card-container-grid {
+  display: grid;
+  width: 90%; /* Occupation d'espace dans le conteneur parent */
+  margin: auto; /* Centre horizontalement */
+  grid-template-rows: repeat(2, 1fr); /* Deux lignes fixes avec une hauteur égale */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colonnes fluides et adaptatives */
+  gap: 20px; /* Espace entre les cartes */
+  justify-items: center; /* Centre chaque carte individuellement */
+  align-items: center; /* Centre verticalement les cartes */
+}
+
+/* ---- Carte individuelle dans la grille ---- */
+.grid-card {
+  width: 150px;
+  height: 200px;
+  background-color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: transform 0.3s; /* Effet de zoom sur le survol */
+}
+
+.grid-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px; /* Coins arrondis */
+}
+
+/* Zoom au survol */
+.grid-card:hover {
+  transform: scale(1.05); /* Agrandissement léger */
+}
+
+/* ---- Boutons ---- */
+.reveal-all-button,
+.close-button {
+  position: absolute; /* Permet de positionner librement */
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%); /* Centré horizontalement */
+  background-color: #007bff; /* Bleu pour le style principal */
+  color: #fff;
+  border: none;
+  border-radius: 5px; /* Coins arrondis */
+  padding: 10px 20px;
+  font-size: 16px; /* Texte de taille modérée */
+  cursor: pointer; /* Indique un bouton interactif */
+  z-index: 10; /* Toujours au-dessus des cartes */
+}
+
+.close-button {
+  bottom: auto;
+  top: 20px;
+  right: 20px;
+  left: auto;
+}
+
+.reveal-all-button:hover,
+.close-button:hover {
+  background-color: darkred; /* Rougit au survol */
+}
+
+@media (max-width: 600px) {
+  .card-container-grid {
+    grid-template-columns: repeat(3, 1fr); /* Forcer 2 colonnes sur petits écrans */
+    width: 100%; /* Utilise tout l'espace disponible */
+    gap: 10px;
+  }
+
+  .grid-card {
+    width: 90px;
+    height: 120px;
+    background-color: transparent;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    transition: transform 0.3s; /* Effet de zoom sur le survol */
+  }
+}

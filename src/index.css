@@ -9,13 +9,6 @@ body {
     min-height: 100vh;
 }
 
-#root {
-    width: 100%;
-    max-width: 800px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-    margin-bottom: 60px; /* Ajoute une marge en bas pour la barre de navigation */
+html {
+    user-select: none; /* Désactive la sélection de texte et d'images */
 }
