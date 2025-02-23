@@ -4,13 +4,14 @@ import { useAuth } from '../context/AuthContext'; // Import du contexte Auth
 
 function useGameData() {
     const [inventory, setInventory] = useState({ simple: 0, rare: 0, epic: 0 });
+    const [userSettings, setUserSettings] = useState({ clicks: 0, nsfw: 1 });
     const { token, user } = useAuth(); // Utilisation du contexte Auth
 
     const saveClicks = useCallback(async (clicks) => {
         if (!token || !user) return;
 
         try {
-            const data = await api.post('/save-game', { clicks }, token);
+            const data = await api.post('/settings', { clicks }, token);
             setInventory(data.inventory);
             console.log("Sauvegarde des clics réussie", data);
             return true;

@@ -62,15 +62,20 @@ const api = {
         return response.json();
     },
 
-    async put(endpoint, data, token) {
-        const response = await fetch(`${config.API_BASE_URL}${endpoint}`, {
+    async put(endpoint, data, token, refreshToken) {
+        const originalRequest = {
+            url: `${config.API_BASE_URL}${endpoint}`,
             method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
-        });
+        };
+
+        const response = await fetch(originalRequest.url, originalRequest);
+        if (response.status === 401) {
+            // Token expiré, tente de rafraîchir puis relancer
+            return retryRequestWithNewToken(originalRequest, refreshToken);
+        }
+
         if (!response.ok) {
             throw new Error(`API Error: ${response.status}`);
         }

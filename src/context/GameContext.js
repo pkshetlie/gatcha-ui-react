@@ -8,7 +8,7 @@ import useInventory from "../hooks/useInventory";
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-    const { clicks, incrementClicks } = useClicks();
+    const { clicks, incrementClicks, initClicks } = useClicks();
     const { assistants, fetchAssistants, updateAssistant, isLoading: isLoadingAssistants } = useAssistants();
     const { inventory, fetchInventory } = useInventory();
     const { saveClicks, loadGame } = useGameData();
@@ -32,6 +32,7 @@ export const GameProvider = ({ children }) => {
                 } finally {
                     setIsLoading(false);
                 }
+                initClicks();
                 fetchAssistants();
                 fetchInventory();
             }
