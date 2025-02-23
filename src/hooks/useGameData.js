@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext'; // Import du contexte Auth
 
 function useGameData() {
     const [inventory, setInventory] = useState({ simple: 0, rare: 0, epic: 0 });
-    const [userSettings, setUserSettings] = useState({ clicks: 0, nsfw: 1 });
     const { token, user } = useAuth(); // Utilisation du contexte Auth
 
     const saveClicks = useCallback(async (clicks) => {

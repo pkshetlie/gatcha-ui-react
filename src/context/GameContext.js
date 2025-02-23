@@ -39,7 +39,7 @@ export const GameProvider = ({ children }) => {
         };
 
         fetchData();
-    }, [token, user, loadGame, fetchAssistants, fetchInventory]);
+    }, [token, user, loadGame, fetchAssistants, fetchInventory, initClicks]);
 
 
     const value = {
