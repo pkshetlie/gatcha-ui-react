@@ -10,10 +10,9 @@ function useClicks() {
     }, []);
     const {token, refreshAccessToken} = useAuth();
 
-    const initClicks = useCallback(async (click) => {
-        const data = await api.get('/init', token, refreshAccessToken); // Appels gérés avec le service API
-        setClicks(data.clicks);
-    }, [token, refreshAccessToken]);
+    const initClicks = useCallback(async (clicks) => {
+        setClicks(clicks);
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(async () => {

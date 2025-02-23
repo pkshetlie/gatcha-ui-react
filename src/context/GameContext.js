@@ -4,6 +4,7 @@ import useAssistants from '../hooks/useAssistants';
 import useGameData from '../hooks/useGameData';
 import { useAuth } from './AuthContext';
 import useInventory from "../hooks/useInventory";
+import api from "../services/api";
 
 const GameContext = createContext();
 
@@ -12,12 +13,13 @@ export const GameProvider = ({ children }) => {
     const { assistants, fetchAssistants, updateAssistant, isLoading: isLoadingAssistants } = useAssistants();
     const { inventory, fetchInventory } = useInventory();
     const { saveClicks, loadGame } = useGameData();
-    const { token, user } = useAuth();
+    const { token, refreshAccessToken, user } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [hideNsfw, setShowNsfw] = useState(true);
 
     const toggleNsfw = () => {
         setShowNsfw((prev) => !prev);
+         api.put('/settings', {nsfw : !hideNsfw}, token, refreshAccessToken);
     };
 
     useEffect(() => {
@@ -32,14 +34,18 @@ export const GameProvider = ({ children }) => {
                 } finally {
                     setIsLoading(false);
                 }
-                initClicks();
+
+                const data = await api.get('/init', token, refreshAccessToken); // Appels gérés avec le service API
+                initClicks(data.clicks);
+                setShowNsfw(data.nsfw??false);
+
                 fetchAssistants();
                 fetchInventory();
             }
         };
 
         fetchData();
-    }, [token, user, loadGame, fetchAssistants, fetchInventory, initClicks]);
+    }, [token, user, loadGame, fetchAssistants, fetchInventory, initClicks, refreshAccessToken]);
 
 
     const value = {
