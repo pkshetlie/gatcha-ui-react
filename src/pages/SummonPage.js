@@ -1,14 +1,14 @@
 import React from 'react';
-import Shop from '../components/Shop/Shop';
+import Summon from '../components/Summon/Summon';
 import PageWrapper from '../components/Layout/PageWrapper';
 
-function ShopPage() {
+function SummonPage() {
     return (
         <PageWrapper>
-            <h1>Shop</h1>
-            <Shop />
+            <h1>Summon</h1>
+            <Summon />
         </PageWrapper>
     );
 }
 
-export default ShopPage;
+export default SummonPage;

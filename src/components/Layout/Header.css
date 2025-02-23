@@ -3,7 +3,7 @@
 .header {
     background-color: #333; /* Fond sombre */
     color: white; /* Texte clair */
-    padding: 10px 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between; /* Espacement entre le titre et les éléments à droite */
     align-items: center;
@@ -29,45 +29,8 @@
 .nsfw-toggle {
     display: flex;
     align-items: center;
-    gap: 10px;
     font-size: 14px;
     color: #333;
-}
-
-/* Style du switch */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 34px;
-    height: 20px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* Structure de base du switch */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px; /* On agrandit un peu pour contenir le texte NSFW */
-    height: 24px; /* Légèrement plus large */
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* Structure de base du switch */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px; /* On agrandit un peu pour contenir le texte NSFW */
-    height: 24px; /* Légèrement plus large */
 }
 
 .switch input {
@@ -148,4 +111,23 @@ input:checked + .slider:after {
 /* Texte plus brillant lorsque le switch est activé */
 input:checked + .slider::after {
     color: #ffffff; /* Couleur blanche (plus lisible) pour l'état activé */
+}
+
+@media (max-width: 600px) {
+    .nsfw-toggle {
+        font-size: 12px;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(42px); /* Déplacer la pastille vers la droite */
+    }
+
+    input:checked + .slider:after {
+        transform: translateX(-20px); /* Déplacer la pastille vers la droite */
+    }
+
+    /* Texte NSFW toujours visible */
+    .slider::after {
+        right: 10px;
+    }
 }

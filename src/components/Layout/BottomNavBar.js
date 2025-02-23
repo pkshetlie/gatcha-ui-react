@@ -6,7 +6,7 @@ function BottomNavBar() {
     return (
         <nav className="bottom-nav">
             <Link to="/">Home</Link>
-            <Link to="/shop">Shop</Link>
+            <Link to="/summon">Summon</Link>
             <Link to="/inventory">Inventory</Link>
         </nav>
     );

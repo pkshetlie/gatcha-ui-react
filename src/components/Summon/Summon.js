@@ -3,9 +3,9 @@ import {useGame} from "../../context/GameContext";
 import api from "../../services/api"; // Service d'API
 import config from "../../config";
 import CardReveal from "../Card/CardReveal"; // Composant de révélation des cartes
-import "./Shop.css"; // Import des styles
+import "./Summon.css"; // Import des styles
 
-const Shop = () => {
+const Summon = () => {
   const { inventory } = useGame(); // Récupération de l'état de l'inventaire
   const [summons, setSummons] = useState([]); // Liste des invocations disponibles
   const [error, setError] = useState(null); // Gestion des erreurs
@@ -92,9 +92,9 @@ const Shop = () => {
               />
               <h3 className="summon-title">{summon.label}</h3>
               <p className="summon-inventory">
-                Ressources disponibles : {availableCount}
+                Available scrolls : {availableCount}
               </p>
-              <p className="summon-options">Choisissez une option :</p>
+              <p className="summon-options">Choose an option:</p>
               <div className="summon-buttons">
                 {[1, 6, 12].map((amount) => (
                   <button
@@ -127,4 +127,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default Summon;

@@ -1,14 +1,14 @@
 .portrait-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    /*overflow: hidden;*/
     position: relative;
 }
 
 .portrait-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: scale-down;
 }
 
 .assistant-card {
@@ -56,4 +56,17 @@
 
 .buttons-container button:hover {
     background-color: #0056b3; /* Couleur de fond plus foncée au survol */
+}
+
+@media (max-width: 600px) {
+    .portrait-container {
+        width: 100px;
+        height: 100px;
+        /*overflow: hidden;*/
+        position: relative;
+    }
+    .buttons-container {
+        font-size: 10px;
+    }
+
 }

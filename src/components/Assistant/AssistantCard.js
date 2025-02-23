@@ -28,13 +28,6 @@ function AssistantCard({ assistant }) {
     setIsInfoModalOpen(false);
   }, [setIsInfoModalOpen]);
 
-  const portraitStyle = {
-    cursor: 'pointer',
-    width: '100%',
-    height: '200px', // Hauteur fixe pour les portraits rectangulaires
-    objectFit: 'cover',
-  };
-
   return (
     <>
       <div className="assistant-card">
@@ -42,13 +35,12 @@ function AssistantCard({ assistant }) {
           <img
             src={config.IMAGE_BASE_URL+assistant.evolution_displayed.portrait}
             alt={assistant.personnage.name}
-            style={portraitStyle}
           />
           <div className="name-overlay">{assistant.personnage.name}</div>
         </div>
         <div className="buttons-container">
-          <button onClick={handleImageClick}>View Image</button>
-          <button onClick={handleInfoClick}>View Info</button>
+          <button onClick={handleImageClick}>Pictures</button>
+          <button onClick={handleInfoClick}>Infos</button>
         </div>
       </div>
 
