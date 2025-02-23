@@ -27,7 +27,7 @@ function useClicks() {
                     console.error("Erreur lors de la mise à jour des clics :", error);
                 }
             }
-        }, 3000); // Vérifie toutes les 3 secondes
+        }, 1000); // Vérifie toutes les 3 secondes
 
         return () => clearInterval(interval); // Nettoie l'intervalle à la destruction du composant
     }, [clicks, previousClicks, token,refreshAccessToken]);
