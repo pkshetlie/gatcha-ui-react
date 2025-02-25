@@ -37,13 +37,13 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await response.json();
-
+debugger;
       localStorage.setItem('token', data.token);
-      localStorage.setItem('refreshToken', data.refreshToken); // Stockez le refreshToken
+      localStorage.setItem('refreshToken', data.refresh_token); // Stockez le refreshToken
       localStorage.setItem('user', JSON.stringify({ username }));
 
       setToken(data.token);
-      setRefreshToken(data.refreshToken);
+      setRefreshToken(data.refresh_token);
       setUser({ username });
     } catch (error) {
       console.error('Login failed:', error);
@@ -68,6 +68,8 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.setItem('token', data.token);
       setToken(data.token);
+      localStorage.setItem('refreshToken', data.refresh_token); // Stockez le refreshToken
+      setRefreshToken(data.refresh_token);
 
       return data.token;
     } catch (err) {
