@@ -5,7 +5,8 @@ import Modal from '../UI/Modal';
 import config from '../../config';
 import InfoModal from '../UI/InfoModal';
 import {useAuth} from "../../context/AuthContext";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCamera, faInfo, faMessage} from "@fortawesome/free-solid-svg-icons";
 function AssistantCard({ assistant }) {
   const { showNsfw } = useGame();
   const { token } = useAuth();
@@ -14,6 +15,10 @@ function AssistantCard({ assistant }) {
 
   const handleImageClick = useCallback(() => {
     setIsModalOpen(true);
+  }, [setIsModalOpen]);
+
+  const handleMessageClick = useCallback(() => {
+      setIsModalOpen(true);
   }, [setIsModalOpen]);
 
   const handleInfoClick = useCallback(() => {
@@ -39,8 +44,9 @@ function AssistantCard({ assistant }) {
           <div className="name-overlay">{assistant.personnage.name}</div>
         </div>
         <div className="buttons-container">
-          <button onClick={handleImageClick}>Pictures</button>
-          <button onClick={handleInfoClick}>Infos</button>
+          <button onClick={handleImageClick}><FontAwesomeIcon icon={faCamera}/></button>
+          <button onClick={handleInfoClick}><FontAwesomeIcon icon={faInfo}/></button>
+          <button onClick={handleMessageClick}><FontAwesomeIcon icon={faMessage}/></button>
         </div>
       </div>
 

@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await response.json();
-debugger;
       localStorage.setItem('token', data.token);
       localStorage.setItem('refreshToken', data.refresh_token); // Stockez le refreshToken
       localStorage.setItem('user', JSON.stringify({ username }));
